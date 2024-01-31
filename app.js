@@ -1,8 +1,6 @@
 const hashMapArray = [];
 let values = [];
 
-const imageId = Array.from({ length: 36 }, (_, index) => `image${index + 1} `);
-
 function fillValues() {
   for (let i = 1; i <= 36; i++) {
     values[i] = i;

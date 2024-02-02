@@ -1,4 +1,4 @@
-const MapArray = [];
+const mapArray = [];
 let values = [];
 
 function fillmap() {
@@ -6,13 +6,12 @@ function fillmap() {
     const k = `${i}`;
     const map = {};
     map[k] = { i: i, j: i + 18 };
-    MapArray.push(map);
+    mapArray.push(map);
   }
 }
-
 fillmap();
 
-MapArray.forEach((map) => {
+mapArray.forEach((map) => {
   for (const k in map) {
     if (map.hasOwnProperty(k)) {
       const { i, j } = map[k];
@@ -24,7 +23,7 @@ MapArray.forEach((map) => {
 
 function insertImage() {
   let elementsToAppend = [];
-  for (const map of MapArray) {
+  for (const map of mapArray) {
     for (const k in map) {
       if (map.hasOwnProperty(k)) {
         const { i, j } = map[k];
@@ -53,10 +52,10 @@ function insertImage() {
         elementsToAppend.push(firstImageDiv);
 
         shuffleArray(elementsToAppend);
+        elementsToAppend.forEach((element) => {
+          container.appendChild(element);
+        });
       }
-      elementsToAppend.forEach((element) => {
-        container.appendChild(element);
-      });
     }
   }
 }
@@ -136,7 +135,7 @@ function hideImages(id1, id2) {
 }
 
 function checkmap(id1, id2) {
-  for (const map of MapArray) {
+  for (const map of mapArray) {
     for (const k in map) {
       if (map.hasOwnProperty(k)) {
         const { i, j } = map[k];

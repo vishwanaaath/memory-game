@@ -1,52 +1,35 @@
-const hashMapArray = [];
+const MapArray = [];
 let values = [];
 
-function fillValues() {
-  for (let i = 1; i <= 36; i++) {
-    values[i] = i;
-  }
-}
-fillValues();
-
-function fillHashMap() {
+function fillmap() {
   for (let i = 1; i <= 18; i++) {
-    if (values[i] !== undefined && values[i + 1] !== undefined) {
-      const key = `${i}`;
-      const hashMap = {};
-      hashMap[key] = { i: i, j: i + 18 };
-      hashMapArray.push(hashMap);
+    if (i !== undefined && i + 1 !== undefined) {
+      const k = `${i}`;
+      const map = {};
+      map[k] = { i: i, j: i + 18 };
+      MapArray.push(map);
     }
   }
 }
 
-fillHashMap();
+fillmap();
 
-hashMapArray.forEach((hashMap) => {
-  for (const key in hashMap) {
-    if (hashMap.hasOwnProperty(key)) {
-      const { i, j } = hashMap[key];
-      console.log(` ${i} ${j}`);
-      console.log(hashMap);
+MapArray.forEach((map) => {
+  for (const k in map) {
+    if (map.hasOwnProperty(k)) {
+      const { i, j } = map[k];
+      console.log(` ${i} and ${j}`);
+      console.log(map);
     }
   }
 });
 
 function insertImage() {
   let elementsToAppend = [];
-  const bannerDiv = document.createElement("div");
-  bannerDiv.id = "bannerDiv";
-  bannerDiv.className = "bannerDiv";
-
-  const banner = document.createElement("img");
-  banner.src = "image/banner.png";
-  banner.id = "banner";
-  bannerDiv.appendChild(banner);
-  container.appendChild(bannerDiv);
-
-  for (const hashMap of hashMapArray) {
-    for (const key in hashMap) {
-      if (hashMap.hasOwnProperty(key)) {
-        const { i, j } = hashMap[key];
+  for (const map of MapArray) {
+    for (const k in map) {
+      if (map.hasOwnProperty(k)) {
+        const { i, j } = map[k];
 
         const firstImageDiv = document.createElement("div");
         firstImageDiv.className = "firstImageDiv";
@@ -103,40 +86,40 @@ function showPokemon() {
       clickElement.innerHTML = "CLICKS: " + click;
       const imageId = parseInt(this.id);
 
-      if (
-        !selectedImages.includes(imageId) &&
-        this.src.includes("pokeball.png")
-      ) {
-        selectedImages.push(imageId);
+      // if (this.src.includes("pokeball.png")) {
+      selectedImages.push(imageId);
 
-        this.src = `image/${imageId}.png`;
+      this.src = `image/${imageId}.png`;
 
-        if (selectedImages.length === 2) {
-          const [id1, id2] = selectedImages;
+      if (selectedImages.length === 2) {
+        const [id1, id2] = selectedImages;
 
-          if (checkHashMap(id1, id2)) {
-            console.log(id1, id2);
-            revealImages(id1, id2);
-            points++;
-            let score = document.getElementById("score");
-            score.innerHTML = "SCORE: " + points;
-            console.log("Points: " + points);
-
-            if (points === 18) {
-              console.log("Congratulations! You won!");
-              displayWon();
-            }
-          } else {
-            setTimeout(() => {
-              hideImages(id1, id2);
-            }, 250);
+        if (checkmap(id1, id2)) {
+          console.log(id1, id2);
+          revealImages(id1, id2);
+          increasePoints();
+          if (points === 18) {
+            alert("Congratulations! You won!");
+            if (click > 100) alert("Try guessing with less clicks");
           }
-
-          selectedImages = [];
+        } else {
+          setTimeout(() => {
+            hideImages(id1, id2);
+          }, 250);
         }
+
+        selectedImages = [];
       }
+      // }
     });
   });
+}
+function increasePoints() {
+  points++;
+  let score = document.getElementById("score");
+  score.innerHTML = "SCORE: " + points;
+  console.log("Points: " + points);
+  return points;
 }
 
 function revealImages(id1, id2) {
@@ -160,11 +143,11 @@ function hideImages(id1, id2) {
   });
 }
 
-function checkHashMap(id1, id2) {
-  for (const hashMap of hashMapArray) {
-    for (const key in hashMap) {
-      if (hashMap.hasOwnProperty(key)) {
-        const { i, j } = hashMap[key];
+function checkmap(id1, id2) {
+  for (const map of MapArray) {
+    for (const k in map) {
+      if (map.hasOwnProperty(k)) {
+        const { i, j } = map[k];
         if ((i === id1 && j === id2) || (i === id2 && j === id1)) {
           return true;
         }
@@ -174,11 +157,3 @@ function checkHashMap(id1, id2) {
   return false;
 }
 showPokemon();
-
-function displayWon() {
-  if (points === 18) {
-    container.style.display = "none";
-    let won = document.getElementById("won");
-    won.style.display = "block";
-  }
-}

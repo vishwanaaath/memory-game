@@ -1,67 +1,50 @@
 body {
   background-color: rgb(244, 226, 178);
-  position: relative;
-  left: -60px;
-  width: 100%;
-  height: 100%;
-
   overflow: hidden;
-}
-
-.image2,
-.image1 {
-  position: absolute;
-  height: 130px;
-  width: 130px;
-}
-
-#bannerDiv {
-  height: 100px;
-  width: 1680px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#banner {
-  height: 100px;
-  width: 298px;
-  margin-top: 50px;
-}
-
-.container {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.firstImageDiv,
-.secondImageDiv {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 70px 80px;
+#banner {
+  position: relative;
+  height: 85px;
+  width: 210px;
+  top: 10px;
 }
 #score {
   position: absolute;
-  left: 180px;
-  top: 60px;
+  left: 10vw;
+  top: 5vh;
   font-size: 30px;
 }
 #click {
   position: absolute;
-  right: 180px;
-  top: 60px;
+  right: 10vw;
+  top: 5vh;
   font-size: 30px;
 }
-#won {
-  position: absolute;
-  height: 10%;
-  width: 30%;
-  font-size: 100px;
+#container {
+  height: 80vh;
+  width: 95vw;
   display: flex;
-  top: 300px;
-  right: 520px;
-  justify-self: center;
-  display: none;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+}
+.firstImageDiv,
+.secondImageDiv {
+  height: 15vh;
+  width: 8.5vw;
+  padding: 0px 8px;
+}
+.image1 {
+  height: 130px;
+  width: 130px;
+}
+.image2 {
+  height: 130px;
+  width: 130px;
 }

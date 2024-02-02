@@ -3,12 +3,10 @@ let values = [];
 
 function fillmap() {
   for (let i = 1; i <= 18; i++) {
-    if (i !== undefined && i + 1 !== undefined) {
-      const k = `${i}`;
-      const map = {};
-      map[k] = { i: i, j: i + 18 };
-      MapArray.push(map);
-    }
+    const k = `${i}`;
+    const map = {};
+    map[k] = { i: i, j: i + 18 };
+    MapArray.push(map);
   }
 }
 
@@ -41,7 +39,6 @@ function insertImage() {
         image1.id = `${i}`;
         image1.className = "image1";
         image1.src = `image/pokeball.png`;
-        // image1.src = `image1/${i}.png`;
         image1.alt = `Image ${image1.id}`;
         firstImageDiv.appendChild(image1);
 
@@ -49,8 +46,7 @@ function insertImage() {
         image2.id = `${j}`;
         image2.className = "image2";
         image2.src = `image/pokeball.png`;
-        // image2.src = `image1/${j}.png`;
-        image2.alt = `Image ${image1.id}`;
+        image2.alt = `Image ${image2.id}`;
         secondImageDiv.appendChild(image2);
 
         elementsToAppend.push(secondImageDiv);
@@ -86,48 +82,45 @@ function showPokemon() {
       clickElement.innerHTML = "CLICKS: " + click;
       const imageId = parseInt(this.id);
 
-      // if (this.src.includes("pokeball.png")) {
-      selectedImages.push(imageId);
+      if (this.src.includes("pokeball.png")) {
+        selectedImages.push(imageId);
 
-      this.src = `image/${imageId}.png`;
+        this.src = `image/${imageId}.png`;
 
-      if (selectedImages.length === 2) {
-        const [id1, id2] = selectedImages;
+        if (selectedImages.length === 2) {
+          const [id1, id2] = selectedImages;
 
-        if (checkmap(id1, id2)) {
-          console.log(id1, id2);
-          revealImages(id1, id2);
-          increasePoints();
-          if (points === 18) {
-            alert("Congratulations! You won!");
-            if (click > 100) alert("Try guessing with less clicks");
+          if (checkmap(id1, id2)) {
+            console.log(id1, id2);
+            revealImages(id1, id2);
+            increasePoints();
+            if (points === 18) {
+              alert("Congratulations! You won!");
+              if (click > 100) alert("Try guessing with less clicks");
+            }
+          } else {
+            setTimeout(() => {
+              hideImages(id1, id2);
+            }, 250);
           }
-        } else {
-          setTimeout(() => {
-            hideImages(id1, id2);
-          }, 250);
+          selectedImages = [];
         }
-
-        selectedImages = [];
       }
-      // }
     });
   });
 }
+
 function increasePoints() {
   points++;
   let score = document.getElementById("score");
   score.innerHTML = "SCORE: " + points;
   console.log("Points: " + points);
-  return points;
 }
 
 function revealImages(id1, id2) {
   const images = document.querySelectorAll("img");
-
   images.forEach((image) => {
-    if (image.id === id1 || parseInt(image.id) === id2) {
-      image.id = parseInt(image.id);
+    if (parseInt(image.id) === id1 || parseInt(image.id) === id2) {
       image.src = `image/${image.id}.png`;
     }
   });
@@ -135,7 +128,6 @@ function revealImages(id1, id2) {
 
 function hideImages(id1, id2) {
   const images = document.querySelectorAll("img");
-
   images.forEach((image) => {
     if (parseInt(image.id) === id1 || parseInt(image.id) === id2) {
       image.src = "image/pokeball.png";
